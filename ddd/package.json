@@ -7,7 +7,7 @@
     "test": "test"
   },
   "dependencies": {
-    "cqrs": "file:/Users/sent1nel/g/sent1nel/cqrs",
+    "cqrs": "file:../cqrs",
     "lodash": "^4.17.10",
     "uuid": "^3.1.0"
   },
