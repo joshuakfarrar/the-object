@@ -14,8 +14,8 @@ let commands = {
   setName: require('./commands/set-name')(Changes.SET_NAME)
 }
 
-var Author = function() {
-  var that = Aggregate({
+let Author = function() {
+  let that = Aggregate({
     name: 'author',
     eventHandlers: eventHandlers
   });
