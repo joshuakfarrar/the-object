@@ -11,8 +11,7 @@ let Actions = {
 
 let eventHandlers = {};
 eventHandlers[Actions.CREATE] = function(data) {
-  let aggregate = this;
-  return aggregate.set('id', data.id).set('created', new Date(data.created));
+  return this.set('id', data.id).set('created', new Date(data.created));
 }
 
 var Aggregate = function(spec) {
