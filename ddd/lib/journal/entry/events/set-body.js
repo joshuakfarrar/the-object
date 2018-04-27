@@ -2,5 +2,5 @@
 
 module.exports = function(data) {
   let entry = this;
-  entry.set('body', data.body);
+  return entry.set('body', data.body);
 }

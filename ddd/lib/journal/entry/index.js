@@ -16,18 +16,20 @@ eventHandlers[Changes.SET_BODY] = require('./events/set-body');
 eventHandlers[Changes.ADD_AUTHOR] = require('./events/add-author');
 eventHandlers[Changes.REMOVE_AUTHOR] = require('./events/remove-author');
 
+let commands = {
+  setTitle: require('./commands/set-title')(Changes.SET_TITLE),
+  setBody: require('./commands/set-body')(Changes.SET_BODY),
+  addAuthor: require('./commands/add-author')(Changes.ADD_AUTHOR),
+  removeAuthor: require('./commands/remove-author')(Changes.REMOVE_AUTHOR)
+}
+
 var Entry = function() {
   var that = Aggregate({
+    name: 'entry',
     eventHandlers: eventHandlers
   });
 
-  // commands
-  return _.merge(that, {
-    setTitle: require('./commands/set-title')(Changes.SET_TITLE),
-    setBody: require('./commands/set-body')(Changes.SET_BODY),
-    addAuthor: require('./commands/add-author')(Changes.ADD_AUTHOR),
-    removeAuthor: require('./commands/remove-author')(Changes.REMOVE_AUTHOR)
-  });
+  return _.merge(that, commands);
 }
 
 module.exports = Entry;

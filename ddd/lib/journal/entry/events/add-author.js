@@ -14,4 +14,6 @@ module.exports = function(data) {
     authors.push(data.authorId);
     entry.set('authors', authors);
   }
+
+  return entry;
 }

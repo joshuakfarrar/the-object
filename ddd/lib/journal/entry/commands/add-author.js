@@ -2,6 +2,6 @@
 
 module.exports = function(type) {
   return function(author) {
-    this.applyChange(type, { authorId: author.get('id') });
+    return this.createEvent(type, { authorId: author.get('id') });
   }
 }

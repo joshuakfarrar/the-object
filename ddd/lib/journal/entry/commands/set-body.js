@@ -2,6 +2,6 @@
 
 module.exports = function(type) {
   return function(body) {
-    this.applyChange(type, { body: body });
+    return this.createEvent(type, { body: body });
   }
 }

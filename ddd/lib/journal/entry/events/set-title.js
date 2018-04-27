@@ -2,5 +2,5 @@
 
 module.exports = function(data) {
   let entry = this;
-  entry.set('title', data.title);
+  return entry.set('title', data.title);
 }

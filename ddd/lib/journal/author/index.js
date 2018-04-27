@@ -10,14 +10,17 @@ let Changes = {
 let eventHandlers = {};
 eventHandlers[Changes.SET_NAME] = require('./events/set-name');
 
+let commands = {
+  setName: require('./commands/set-name')(Changes.SET_NAME)
+}
+
 var Author = function() {
   var that = Aggregate({
+    name: 'author',
     eventHandlers: eventHandlers
   });
 
-  return _.merge(that, {
-    setName: require('./commands/set-name')(Changes.SET_NAME)
-  });
+  return _.merge(that, commands);
 }
 
 module.exports = Author;

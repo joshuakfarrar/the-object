@@ -12,5 +12,5 @@ module.exports = function(data) {
     });
   }
 
-  entry.set('authors', removeAuthorById(authors, data.authorId));
+  return entry.set('authors', removeAuthorById(authors, data.authorId));
 }
