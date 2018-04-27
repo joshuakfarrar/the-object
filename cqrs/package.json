@@ -9,6 +9,7 @@
   "author": "Joshua K. Farrar <joshua@sent1nel.me> (http://sent1nel.me)",
   "license": "ISC",
   "dependencies": {
+    "lodash": "^4.17.10",
     "uuid": "^3.2.1"
   }
 }

@@ -1,7 +1,5 @@
 'use strict';
 
-const uuid = require('uuid/v4');
-const util = require('util');
 const { Aggregate } = require('cqrs');
 const _ = require('lodash');
 
@@ -19,15 +17,16 @@ eventHandlers[Changes.ADD_AUTHOR] = require('./events/add-author');
 eventHandlers[Changes.REMOVE_AUTHOR] = require('./events/remove-author');
 
 var Entry = function() {
-  var that = Aggregate();
+  var that = Aggregate({
+    eventHandlers: eventHandlers
+  });
 
+  // commands
   return _.merge(that, {
-    _eventHandlers: _.merge(that._eventHandlers, eventHandlers),
-
     setTitle: require('./commands/set-title')(Changes.SET_TITLE),
     setBody: require('./commands/set-body')(Changes.SET_BODY),
     addAuthor: require('./commands/add-author')(Changes.ADD_AUTHOR),
-    removeAuthor: require('./commands/remove-author')(Changes.REMOVE_AUTHOR) 
+    removeAuthor: require('./commands/remove-author')(Changes.REMOVE_AUTHOR)
   });
 }
 
