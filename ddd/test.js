@@ -1,12 +1,15 @@
 const { Persistor } = require('cqrs');
+const Driver = require('cqrs-driver-knex');
 const { Journal } = require('./index');
 
-// var knex = require('knex')({
-//   client: 'sqlite3',
-//   connection: {
-//     filename: "./mydb.sqlite"
-//   }
-// });
+var knex = require('knex')({
+  client: 'sqlite3',
+  connection: {
+    filename: "./dev.sqlite3"
+  }
+});
+
+var persistor = Persistor(Driver(knex));
 
 var entry = Journal.Entry();
 entry.create();
@@ -31,25 +34,33 @@ entry
   .setTitle('conquest')
   .setTitle('of')
   .setTitle('bread')
-  .setTitle('the conquest of bread')
+  .setTitle('the conquest of bread');
 
 console.log("Entry");
 console.log("-----")
 console.log(entry._domainModel);
+
 console.log();
 console.log("Author");
 console.log("------")
 console.log(author._domainModel);
 
-Persistor().save(entry);
+persistor.save(entry)
+  .then(aggregate => {
 
-Persistor().save(author);
+    // console.log("Entry");
+    // console.log("-----")
+    // console.log(aggregate.getReadModel());
 
-var restored = Persistor().restore(Journal.Entry(), entry.get('id'));
+    // persistor.save(author);
 
-console.log();
-console.log("Entry: Restored");
-console.log("---------------")
-console.log(restored.getReadModel());
-console.log();
-console.log(restored._events);
+    persistor.restore(Journal.Entry(), entry.get('id'))
+      .then(restored => {
+        console.log();
+        console.log("Entry: Restored");
+        console.log("---------------");
+        console.log(restored.getReadModel());
+
+        knex.destroy();
+      });
+  });

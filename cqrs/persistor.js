@@ -1,7 +1,5 @@
 'use strict';
 
-var storage = {};
-
 var Persistor = function(driver) {
 	return {
 		restore: function(aggregate, id) {
@@ -11,13 +9,10 @@ var Persistor = function(driver) {
 			  });
 		},
 		save: function(aggregate) {
-			// console.log("\nEvents\n------")
-			// console.log(aggregate.getUnsavedEvents());
-
-			storage[aggregate.get('id')] = aggregate.getUnsavedEvents();
-			aggregate.onSave();
-
-			return false;
+			return driver.saveEvents(aggregate.getUnsavedEvents())
+				.then(success => {
+					return aggregate.onSave();
+				});
 		}
 	}
 }

@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "cqrs": "file:../cqrs",
+    "cqrs-driver-knex": "file:../cqrs-driver-knex",
     "knex": "^0.14.6",
     "lodash": "^4.17.10",
     "pg": "^7.4.1",

@@ -1,0 +1,15 @@
+{
+  "name": "cqrs-driver-knex",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "cqrs": "file:../cqrs",
+    "lodash": "^4.17.10"
+  },
+  "author": "Joshua K. Farrar <joshua@sent1nel.me> (http://sent1nel.me)",
+  "license": "ISC"
+}
