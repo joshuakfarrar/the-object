@@ -3,8 +3,7 @@
 const _ = require('lodash');
 
 var Driver = function(knex) {
-  var that = require('cqrs').Driver;
-  return that({
+  return require('cqrs').Driver({
     fetchEventsForAggregate: function(id) {
       return new Promise((resolve, reject) => {
         return knex('events').where({ aggregateId: id })
