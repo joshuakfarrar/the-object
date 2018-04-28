@@ -1,6 +1,12 @@
 const { Persistor } = require('cqrs');
-
 const { Journal } = require('./index');
+
+// var knex = require('knex')({
+//   client: 'sqlite3',
+//   connection: {
+//     filename: "./mydb.sqlite"
+//   }
+// });
 
 var entry = Journal.Entry();
 entry.create();
@@ -45,3 +51,5 @@ console.log();
 console.log("Entry: Restored");
 console.log("---------------")
 console.log(restored.getReadModel());
+console.log();
+console.log(restored._events);

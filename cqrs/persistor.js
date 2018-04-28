@@ -2,11 +2,13 @@
 
 var storage = {};
 
-var Persistor = function() {
+var Persistor = function(driver) {
 	return {
 		restore: function(aggregate, id) {
-			var events = storage[id];
-			return aggregate.restore(events);
+			return driver.fetchEventsForAggregate(id)
+			  .then(events => {
+			    return aggregate.restore(events);
+			  });
 		},
 		save: function(aggregate) {
 			// console.log("\nEvents\n------")
