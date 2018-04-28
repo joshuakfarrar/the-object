@@ -9,9 +9,9 @@ var Driver = function(knex) {
         return knex('events').where({ aggregateId: id })
           .then(events => {
             return resolve(_.each(events, function(event) {
-              var e = event;
-              e.payload = JSON.parse(event.payload);
-              return e;
+              return _.merge(event, {
+                payload: JSON.parse(event.payload)
+              });
             }));
           });
       });
@@ -19,9 +19,9 @@ var Driver = function(knex) {
     saveEvents: function(events) {
       return new Promise((resolve, reject) => {
         return resolve(knex('events').insert(_.each(events, function(event) {
-          var e = event;
-          e.payload = JSON.stringify(event.payload);
-          return e;
+          return _.merge(event, {
+            payload: JSON.stringify(event.payload)
+          });
         })));
       });
     }
