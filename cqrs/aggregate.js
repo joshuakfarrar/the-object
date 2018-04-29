@@ -22,10 +22,16 @@ var Aggregate = function(spec) {
     _events: [],
     _unsavedEvents: [],
     create: function() {
+      if (typeof this.get('id') !== 'undefined') {
+        throw new Error('Aggregate has already been created.');
+      }
       var event = Event(this, Actions.CREATE, { id: uuid(), type: spec.name, created: Date.now() });
-      return this._addUnsavedEvent(event).applyEvent(event);
+      return this._addUnsavedEvent(event)._applyEvent(event);
     },
     createEvent: function(type, payload) {
+      if (typeof this.get('id') === 'undefined') {
+        throw new Error('Aggregate has not yet been created.');
+      }
       this._addUnsavedEvent(Event(this, type, payload));
       return this;
     },
@@ -33,7 +39,7 @@ var Aggregate = function(spec) {
       this._unsavedEvents.push(event);
       return this;
     },
-    applyEvent: function(event) {
+    _applyEvent: function(event) {
       return this._eventHandlers[event.type].call(this, event.payload);
     },
     set: function(field, value) {
@@ -45,7 +51,7 @@ var Aggregate = function(spec) {
     getReadModel: function() {
       var self = this;
       _.forEach(_.sortBy(this._getEvents(), ['timestamp']), function(event) {
-        return self.applyEvent(event);
+        return self._applyEvent(event);
       });
       return self._domainModel;
     },
@@ -58,6 +64,9 @@ var Aggregate = function(spec) {
       return this._unsavedEvents;
     },
     restore: function(events) {
+      if (typeof this.get('id') !== 'undefined') {
+        throw new Error('An Aggregate cannot be restored onto if it has already been created.');
+      }
       return this._setEvents(events);
     },
     _getEvents: function() {

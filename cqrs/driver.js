@@ -1,8 +1,10 @@
 'use strict';
 
 var Driver = function(spec) {
+  var spec = spec || {};
+
   var throwMissingOverrideError = function() {
-    throw new Error("You didn't override something.");
+    throw new Error('Your driver did not override a driver method.');
   }
 
   return {

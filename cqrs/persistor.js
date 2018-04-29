@@ -1,6 +1,13 @@
 'use strict';
 
 var Persistor = function(driver) {
+  var driver = driver || {};
+
+  if (typeof driver.fetchEventsForAggregate !== 'function' ||
+      typeof driver.saveEvents !== 'function') {
+    throw new Error('Driver is incomplete.');
+  }
+
   return {
     restore: function(aggregate, id) {
       return driver.fetchEventsForAggregate(id)
