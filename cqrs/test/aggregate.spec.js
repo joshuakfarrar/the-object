@@ -112,4 +112,3 @@ test('...but not if that Aggregate has already been created', () => {
 
   expect(restored.restore.bind(aggregate, aggregate._events)).toThrow('An Aggregate cannot be restored onto if it has already been created.')
 });
-

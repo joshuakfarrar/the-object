@@ -26,7 +26,7 @@ test('restore must used the driver\'s fetchEventsForAggregate method to restore 
 
   persistor.restore(Aggregate(), 'test');
   expect(driverSpec.fetchEventsForAggregate).toHaveBeenCalled();
-})
+});
 
 test('save must used the driver\'s saveEvents method to restore an aggregate', () => {
   var driver = Driver(driverSpec);
@@ -35,4 +35,4 @@ test('save must used the driver\'s saveEvents method to restore an aggregate', (
 
   persistor.save(Aggregate());
   expect(driverSpec.saveEvents).toHaveBeenCalled();
-})
+});
