@@ -1,6 +1,6 @@
 'use strict';
 
-const Persistor = require('../persistor');
+const Repository = require('../repository');
 const Aggregate = require('../aggregate');
 const Driver = require('../driver');
 
@@ -16,23 +16,23 @@ var driverSpec = {
 }
 
 test('Persistor must be passed a valid driver', () => {
-  expect(Persistor).toThrow('Driver is incomplete.')
+  expect(Repository).toThrow('Driver is incomplete.')
 });
 
 test('restore must used the driver\'s fetchEventsForAggregate method to restore an aggregate', () => {
   var driver = Driver(driverSpec);
 
-  var persistor = Persistor(driver);
+  var repository = Repository(driver);
 
-  persistor.restore(Aggregate(), 'test');
+  repository.restore(Aggregate(), 'test');
   expect(driverSpec.fetchEventsForAggregate).toHaveBeenCalled();
 });
 
 test('save must used the driver\'s saveEvents method to restore an aggregate', () => {
   var driver = Driver(driverSpec);
 
-  var persistor = Persistor(driver);
+  var repository = Repository(driver);
 
-  persistor.save(Aggregate());
+  repository.save(Aggregate());
   expect(driverSpec.saveEvents).toHaveBeenCalled();
 });

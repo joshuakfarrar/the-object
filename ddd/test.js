@@ -100,7 +100,7 @@ console.log("Author");
 console.log("------")
 console.log(author._domainModel);
 
-const { Persistor } = require('cqrs');
+const { Repository } = require('cqrs');
 const Driver = require('cqrs-driver-knex');
 
 var knex = require('knex')({
@@ -110,11 +110,11 @@ var knex = require('knex')({
   }
 });
 
-var persistor = Persistor(Driver(knex));
+var repository = Repository(Driver(knex));
 
-persistor.save(entry)
+repository.save(entry)
   .then(aggregate => {
-    persistor.restore(Journal.Entry(), aggregate.get('id'))
+    repository.restore(Journal.Entry(), aggregate.get('id'))
       .then(restored => {
         console.log();
         console.log("Entry: Restored");

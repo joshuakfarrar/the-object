@@ -12,7 +12,7 @@ let Actions = {
 let eventHandlers = {};
 eventHandlers[Actions.CREATE] = function(data) {
   return this.set('id', data.id).set('created', new Date(data.created));
-}
+};
 
 var Aggregate = function(spec) {
   var spec = spec || {};

@@ -1,6 +1,6 @@
 'use strict';
 
-var Persistor = function(driver) {
+var Repository = function(driver) {
   var driver = driver || {};
 
   if (typeof driver.fetchEventsForAggregate !== 'function' ||
@@ -24,4 +24,4 @@ var Persistor = function(driver) {
   }
 }
 
-module.exports = Persistor;
+module.exports = Repository;
