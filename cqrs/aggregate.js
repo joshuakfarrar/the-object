@@ -48,12 +48,15 @@ var Aggregate = function(spec) {
     get: function(field) {
       return _.get(this._domainModel, field);
     },
-    getReadModel: function() {
+    applyEvents: function() {
       var self = this;
-      _.forEach(_.sortBy(this._getEvents(), ['timestamp']), function(event) {
+      _.forEach(_.sortBy(this.getUnsavedEvents().concat(this._getEvents()), ['timestamp']), function(event) {
         return self._applyEvent(event);
       });
-      return self._domainModel;
+      return self;
+    },
+    getReadModel: function() {
+      return this.applyEvents()._domainModel;
     },
     onSave: function() {
       return this
